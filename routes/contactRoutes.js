@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Contact = require('../models/Contact');
+
 
 router.post('/', async (req, res) => {
     try {
@@ -28,11 +30,18 @@ router.put('/:id', async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: 'Error updating contact', error: error.message });
     }
-
 });
+
 
 router.delete('/:id', async (req, res) => {
     try {
+        console.log('Request ID:', req.params.id);
+
+
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: 'Invalid ID format' });
+        }
+
         const deletedContact = await Contact.findByIdAndDelete(req.params.id);
 
         if (!deletedContact) {
@@ -40,7 +49,6 @@ router.delete('/:id', async (req, res) => {
         }
         
         res.status(200).json({ message: 'Contact deleted', deletedContact });
-
     } catch (error) {
         res.status(400).json({ message: 'Error deleting contact', error: error.message });
     }

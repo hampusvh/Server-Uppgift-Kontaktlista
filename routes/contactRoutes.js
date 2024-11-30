@@ -12,4 +12,23 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    try {
+        const updatedContact = await Contact.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+        
+        if (!updatedContact) {
+            return res.status(404).json({ message: 'Contact not found' });
+        }
+
+        res.status(200).json(updatedContact);
+    } catch (error) {
+        res.status(400).json({ message: 'Error updating contact', error: error.message });
+    }
+
+});
+
 module.exports = router;

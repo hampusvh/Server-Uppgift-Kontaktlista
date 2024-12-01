@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontaktlista</title>
+    <link rel="styles" href="style.css">
+</head>
+<body>
+
+    <h1>Kontaktlista</h1>
+    <div>
+        <h2>Skapa en ny kontakt</h2>
+        <form id="create-contact">
+            <input type="text" id="name" placeholder="Namn" required />
+            <input type="text" id="phone" placeholder="Telefon" required />
+            <input type="email" id="email" placeholder="E-post" required />
+            <button type="submit">Skapa</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Kontakter</h2>
+        <button id="get-contacts">Hämta kontakter</button>
+        <ul id="contacts-list"></ul>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

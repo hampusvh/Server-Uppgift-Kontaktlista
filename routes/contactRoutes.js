@@ -2,7 +2,26 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Contact = require('../models/Contact');
+const jwt = require('jsonwebtoken');
 
+const verifyToken = (req, res, next) => {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(403).json({ message: 'No token provided' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, 'secretkey');
+        req.user = decoded;
+        next();
+    } catch (error) {
+        res.status(401).json({ message: 'Invalid token' });
+    }
+};
+
+router.get('/protected', verifyToken, async (req, res) => {
+    res.status(200).json({ message: 'This is protected data', user: req.user });
+});
 
 router.post('/', async (req, res) => {
     try {
@@ -30,7 +49,7 @@ router.put('/:id', async (req, res) => {
             req.body,
             { new: true, runValidators: true }
         );
-        
+
         if (!updatedContact) {
             return res.status(404).json({ message: 'Contact not found' });
         }
@@ -56,7 +75,7 @@ router.delete('/:id', async (req, res) => {
         if (!deletedContact) {
             return res.status(404).json({ message: 'Contact not found' });
         }
-        
+
         res.status(200).json({ message: 'Contact deleted', deletedContact });
     } catch (error) {
         res.status(400).json({ message: 'Error deleting contact', error: error.message });

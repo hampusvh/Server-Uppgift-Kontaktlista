@@ -10,10 +10,10 @@ connectDB();
 const app = express();
 
 app.use(cors());
+app.use(express.json());
+
 
 app.use('/api/auth', require('./routes/authRoutes'));
-
-app.use(express.json());
 
 app.use(express.static("public"));
 
@@ -23,5 +23,5 @@ app.get('/', (req, res) => {
     res.send('Hej och välkommen');
 });
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5001; 
 app.listen(PORT, () => console.log(`Servern körs på port ${PORT}`));

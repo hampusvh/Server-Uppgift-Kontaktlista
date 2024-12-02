@@ -21,4 +21,3 @@ router.post('/login', (req, res) => {
 
 module.exports = router;
 
-app.use('/api/auth', require('./routes/authRoutes')); 

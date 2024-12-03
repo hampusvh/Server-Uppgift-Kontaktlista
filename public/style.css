@@ -1,16 +1,21 @@
 
+body {
+    background: radial-gradient(ellipse, rgb(59, 130, 229), rgb(37, 235, 162), rgb(44, 1, 73));
+}
+
 #login-box, #create-box, #list-box {
 
     display: flex;
     flex-direction: column;
     max-width: 600px;
-    border: 1px solid black;
+    border: none;
     border-radius: 15px;
     justify-content: center;
     align-items: center;
     margin: auto;
     padding: 10px;
     margin-bottom: 50px;
+    background-color: rgb(255, 255, 255);
 }
 
 #login-box {
@@ -28,4 +33,12 @@
 
 #contacts-list li {
     margin-bottom: 15px;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 7px;
+    color: white;
+    background-color: rgb(61, 173, 91);
 }
